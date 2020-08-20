@@ -22,18 +22,24 @@ omake_dep_0.xorshift32.c.o: xorshift32.c
 omake_dep_0.mt19937_64.c.o: mt19937_64.c
 	$(CC) $(CFLAGS) -Wall -Werror -Wextra -fPIC -c $< -o $@
 
-omake_dep_0.mt19937_32.c.o: mt19937_32.c
+omake_dep_0.splitmix64.c.o: splitmix64.c
 	$(CC) $(CFLAGS) -Wall -Werror -Wextra -fPIC -c $< -o $@
 
 omake_dep_0.xorshift64.c.o: xorshift64.c
 	$(CC) $(CFLAGS) -Wall -Werror -Wextra -fPIC -c $< -o $@
 
-math_shared_OBJS := omake_dep_0.xorshift64.c.o omake_dep_0.mt19937_32.c.o omake_dep_0.mt19937_64.c.o omake_dep_0.xorshift32.c.o
+omake_dep_0.mt19937_32.c.o: mt19937_32.c
+	$(CC) $(CFLAGS) -Wall -Werror -Wextra -fPIC -c $< -o $@
+
+omake_dep_0.xoshiro256ss.c.o: xoshiro256ss.c
+	$(CC) $(CFLAGS) -Wall -Werror -Wextra -fPIC -c $< -o $@
+
+math_shared_OBJS := omake_dep_0.xoshiro256ss.c.o omake_dep_0.xorshift64.c.o omake_dep_0.splitmix64.c.o omake_dep_0.mt19937_32.c.o omake_dep_0.mt19937_64.c.o omake_dep_0.xorshift32.c.o
 
 libmath_shared.so: $(math_shared_OBJS)
 	$(CC) $(CFLAGS) -fPIC -Wextra -Werror -Wall -shared -o $@ $^
 
-math_static_OBJS := omake_dep_0.xorshift64.c.o omake_dep_0.mt19937_32.c.o omake_dep_0.mt19937_64.c.o omake_dep_0.xorshift32.c.o
+math_static_OBJS := omake_dep_0.xoshiro256ss.c.o omake_dep_0.xorshift64.c.o omake_dep_0.splitmix64.c.o omake_dep_0.mt19937_32.c.o omake_dep_0.mt19937_64.c.o omake_dep_0.xorshift32.c.o
 
 libmath_static.a: $(math_static_OBJS)
 	$(AR) rc $@ $^

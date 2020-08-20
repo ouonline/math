@@ -8,7 +8,7 @@ else
 	CFLAGS += -O2 -DNDEBUG
 endif
 
-TARGET := test_mt19937
+TARGET := test_perf test_mt19937
 
 .PHONY: all clean distclean
 
@@ -17,6 +17,18 @@ all: $(TARGET)
 .PHONY: omake_phony_0
 omake_phony_0:
 	$(MAKE) debug=$(debug) libmath_static.a -C ..
+
+omake_dep_1_INCLUDE := -I../..
+
+omake_dep_1.test_perf.c.o: test_perf.c
+	$(CC) $(CFLAGS) -Wall -Werror -Wextra $(omake_dep_1_INCLUDE) -c $< -o $@
+
+test_perf_OBJS := omake_dep_1.test_perf.c.o
+
+test_perf_LIBS := ../libmath_static.a
+
+test_perf: $(test_perf_OBJS) | omake_phony_0
+	$(CC) $(CFLAGS) -Wextra -Werror -Wall -o $@ $^ $(test_perf_LIBS)
 
 omake_dep_0_INCLUDE := -I../..
 
@@ -31,7 +43,7 @@ test_mt19937: $(test_mt19937_OBJS) | omake_phony_0
 	$(CC) $(CFLAGS) -Wextra -Werror -Wall -o $@ $^ $(test_mt19937_LIBS)
 
 clean:
-	rm -f $(TARGET) $(test_mt19937_OBJS)
+	rm -f $(TARGET) $(test_perf_OBJS) $(test_mt19937_OBJS)
 
 distclean:
 	$(MAKE) clean
