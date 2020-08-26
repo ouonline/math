@@ -1,15 +1,17 @@
-project = CreateProject()
+project = Project()
+
+flags = {"-Wall", "-Werror", "-Wextra"}
 
 project:CreateBinary("test_mt19937"):AddDependencies(
     project:CreateDependency()
-        :AddFlags("-Wall", "-Werror", "-Wextra")
+        :AddFlags(flags)
         :AddSourceFiles("test_mt19937.c")
-        :AddStaticLibrary("..", "math_static"))
+        :AddStaticLibraries("..", "math_static"))
 
 project:CreateBinary("test_perf"):AddDependencies(
     project:CreateDependency()
-        :AddFlags("-Wall", "-Werror", "-Wextra")
+        :AddFlags(flags)
         :AddSourceFiles("test_perf.c")
-        :AddStaticLibrary("..", "math_static"))
+        :AddStaticLibraries("..", "math_static"))
 
 return project

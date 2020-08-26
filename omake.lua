@@ -1,8 +1,8 @@
-project = CreateProject()
+project = Project()
 
 dep = project:CreateDependency()
     :AddSourceFiles("*.c")
-    :AddFlags("-Wall", "-Werror", "-Wextra", "-fPIC")
+    :AddFlags({"-Wall", "-Werror", "-Wextra", "-fPIC"})
 
 project:CreateStaticLibrary("math_static"):AddDependencies(dep)
 project:CreateSharedLibrary("math_shared"):AddDependencies(dep)
