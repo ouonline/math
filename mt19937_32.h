@@ -13,7 +13,7 @@ struct mt19937_32 {
 };
 
 void mt19937_init32(struct mt19937_32* st, uint32_t seed);
-uint32_t mt19937_rand32(struct mt19937_32* st);
+uint32_t mt19937_next32(struct mt19937_32* st);
 
 #ifdef __cplusplus
 typedef struct mt19937_32 MT19937_32;

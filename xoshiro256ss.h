@@ -12,7 +12,7 @@ struct xoshiro256ss {
 };
 
 void xoshiro256ss_init(struct xoshiro256ss* st, uint64_t seed);
-uint64_t xoshiro256ss_rand(struct xoshiro256ss* st);
+uint64_t xoshiro256ss_next(struct xoshiro256ss* st);
 
 #ifdef __cplusplus
 typedef struct xoshiro256ss Xoshiro256ss;

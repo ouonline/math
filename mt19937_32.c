@@ -23,6 +23,6 @@ void mt19937_init32(struct mt19937_32* st, uint32_t seed) {
     mersenne_twister_init(st, seed);
 }
 
-uint32_t mt19937_rand32(struct mt19937_32* st) {
+uint32_t mt19937_next32(struct mt19937_32* st) {
     return mersenne_twister_extract_number(st);
 }

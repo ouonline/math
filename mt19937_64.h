@@ -13,7 +13,7 @@ struct mt19937_64 {
 };
 
 void mt19937_init64(struct mt19937_64* st, uint64_t seed);
-uint64_t mt19937_rand64(struct mt19937_64* st);
+uint64_t mt19937_next64(struct mt19937_64* st);
 
 #ifdef __cplusplus
 typedef struct mt19937_64 MT19937_64;

@@ -7,7 +7,7 @@ void xorshift64_init(struct xorshift64* st, uint64_t seed) {
     st->s = seed;
 }
 
-uint64_t xorshift64_rand(struct xorshift64* st) {
+uint64_t xorshift64_next(struct xorshift64* st) {
     uint64_t x = st->s;
     x ^= (x << 13);
     x ^= (x >> 7);

@@ -22,7 +22,7 @@ static inline uint64_t times5(uint64_t x) {
     return (x << 2) + x;
 }
 
-uint64_t xoshiro256ss_rand(struct xoshiro256ss* st) {
+uint64_t xoshiro256ss_next(struct xoshiro256ss* st) {
     uint64_t* s = st->s;
     const uint64_t result = times9(rol64(times5(s[1]), 7));
     const uint64_t t = s[1] << 17;

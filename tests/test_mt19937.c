@@ -58,7 +58,7 @@ static void test_32() {
     struct mt19937_32 st;
     mt19937_init32(&st, SEED);
     for (int i = 0; i < N; ++i) {
-        uint32_t v = mt19937_rand32(&st);
+        uint32_t v = mt19937_next32(&st);
         if (v != mt19937_32_res[i]) {
             fprintf(stderr, "mt19937_32 test [%d] failed.\n", i);
             exit(-1);
@@ -70,7 +70,7 @@ static void test_64() {
     struct mt19937_64 st;
     mt19937_init64(&st, SEED);
     for (int i = 0; i < N; ++i) {
-        uint64_t v = mt19937_rand64(&st);
+        uint64_t v = mt19937_next64(&st);
         if (v != mt19937_64_res[i]) {
             fprintf(stderr, "mt19937_64 test [%d] failed.\n", i);
             exit(-1);

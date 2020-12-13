@@ -7,7 +7,7 @@ void xorshift32_init(struct xorshift32* st, uint32_t seed) {
     st->s = seed;
 }
 
-uint32_t xorshift32_rand(struct xorshift32* st) {
+uint32_t xorshift32_next(struct xorshift32* st) {
     uint32_t x = st->s;
     x ^= (x << 13);
     x ^= (x >> 17);

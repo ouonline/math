@@ -12,7 +12,7 @@ struct xorshift32 {
 };
 
 void xorshift32_init(struct xorshift32* st, uint32_t seed);
-uint32_t xorshift32_rand(struct xorshift32* st);
+uint32_t xorshift32_next(struct xorshift32* st);
 
 #ifdef __cplusplus
 typedef struct xorshift32 Xorshift32;

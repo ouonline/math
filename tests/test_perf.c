@@ -5,6 +5,7 @@
 #include "math/mt19937_64.h"
 #include "math/xorshift32.h"
 #include "math/xorshift64.h"
+#include "math/splitmix64.h"
 #include "math/xoshiro256ss.h"
 
 #define LOOPS 5555555
@@ -39,7 +40,7 @@ static void test_xorshift32() {
     struct timeval begin, end;
     gettimeofday(&begin, NULL);
     for (int i = 0; i < LOOPS; ++i) {
-        xorshift32_rand(&st);
+        xorshift32_next(&st);
     }
     gettimeofday(&end, NULL);
     printf("xorshift32 cost %f ms.\n", DiffTimeUsec(&end, &begin) / 1000.0);
@@ -52,10 +53,23 @@ static void test_xorshift64() {
     struct timeval begin, end;
     gettimeofday(&begin, NULL);
     for (int i = 0; i < LOOPS; ++i) {
-        xorshift64_rand(&st);
+        xorshift64_next(&st);
     }
     gettimeofday(&end, NULL);
     printf("xorshift64 cost %f ms.\n", DiffTimeUsec(&end, &begin) / 1000.0);
+}
+
+static void test_splitmix64() {
+    struct splitmix64 st;
+    splitmix64_init(&st, 31415926);
+
+    struct timeval begin, end;
+    gettimeofday(&begin, NULL);
+    for (int i = 0; i < LOOPS; ++i) {
+        splitmix64_next(&st);
+    }
+    gettimeofday(&end, NULL);
+    printf("splitmix64 cost %f ms.\n", DiffTimeUsec(&end, &begin) / 1000.0);
 }
 
 static void test_xoshiro256ss() {
@@ -65,7 +79,7 @@ static void test_xoshiro256ss() {
     struct timeval begin, end;
     gettimeofday(&begin, NULL);
     for (int i = 0; i < LOOPS; ++i) {
-        xoshiro256ss_rand(&st);
+        xoshiro256ss_next(&st);
     }
     gettimeofday(&end, NULL);
     printf("xoshiro256ss cost %f ms.\n", DiffTimeUsec(&end, &begin) / 1000.0);
@@ -78,7 +92,7 @@ static void test_mt19937_32() {
     struct timeval begin, end;
     gettimeofday(&begin, NULL);
     for (int i = 0; i < LOOPS; ++i) {
-        mt19937_rand32(&st);
+        mt19937_next32(&st);
     }
     gettimeofday(&end, NULL);
     printf("mt19937_32 cost %f ms.\n", DiffTimeUsec(&end, &begin) / 1000.0);
@@ -91,7 +105,7 @@ static void test_mt19937_64() {
     struct timeval begin, end;
     gettimeofday(&begin, NULL);
     for (int i = 0; i < LOOPS; ++i) {
-        mt19937_rand64(&st);
+        mt19937_next64(&st);
     }
     gettimeofday(&end, NULL);
     printf("mt19937_64 cost %f ms.\n", DiffTimeUsec(&end, &begin) / 1000.0);
@@ -101,6 +115,7 @@ int main(void) {
     test_rand();
     test_xorshift32();
     test_xorshift64();
+    test_splitmix64();
     test_xoshiro256ss();
     test_mt19937_32();
     test_mt19937_64();
